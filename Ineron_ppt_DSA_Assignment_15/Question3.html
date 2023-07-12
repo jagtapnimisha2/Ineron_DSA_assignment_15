@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Question3: Implement a Stack using two queues q1 and q2.
+-->
+
+    <script>
+class Stack {
+  constructor() {
+    this.q1 = [];
+    this.q2 = [];
+  }
+
+  push(element) {
+    this.q1.push(element);
+  }
+
+  pop() {
+    if (this.q1.length === 0) {
+      return "Stack is empty";
+    }
+    while (this.q1.length > 1) {
+      this.q2.push(this.q1.shift());
+    }
+    const popped = this.q1.shift();
+    [this.q1, this.q2] = [this.q2, this.q1];
+
+    return popped;
+  }
+
+  peek() {
+    if (this.q1.length === 0) {
+      return "Stack is empty";
+    }
+    while (this.q1.length > 1) {
+      this.q2.push(this.q1.shift());
+    }
+    const top = this.q1[0];
+    this.q2.push(this.q1.shift());
+    [this.q1, this.q2] = [this.q2, this.q1];
+
+    return top;
+  }
+
+  isEmpty() {
+    return this.q1.length === 0;
+  }
+}
+const stack = new Stack();
+
+stack.push(1);
+stack.push(2);
+stack.push(3);
+
+console.log(stack.pop());
+console.log(stack.peek());
+console.log(stack.isEmpty());
+
+stack.push(4);
+
+console.log(stack.pop());
+console.log(stack.pop());
+console.log(stack.pop());
+console.log(stack.isEmpty());
+
+    </script>
+</body>
+</html>
